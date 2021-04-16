@@ -2,7 +2,6 @@ package com.iperona;
 
 import com.iperona.Controlador.Controller;
 import com.iperona.Model.Hospital;
-import com.iperona.Model.Pacient;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +11,11 @@ import javafx.stage.Stage;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+/**
+ * Projecte M3 UF5 - Hospital
+ * @author ItsPerona (Ismael Perona)
+ */
 
 public class Main extends Application {
 
@@ -23,8 +27,6 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Vista/inici.fxml"), ResourceBundle.getBundle("args", Locale.getDefault()));
         loader.setControllerFactory(c -> controller);
         Parent root = loader.load();
-
-        Controller.addDefaultPacients();
 
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("Vista/logo.png")));
         primaryStage.setTitle(ResourceBundle.getBundle("args", Locale.getDefault()).getString("hospital"));

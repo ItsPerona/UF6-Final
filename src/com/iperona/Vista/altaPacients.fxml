@@ -81,5 +81,11 @@
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="dona" layoutX="432.0" layoutY="107.0" mnemonicParsing="false" onAction="#changePB" text="%dona" toggleGroup="$sex" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Label layoutX="377.0" layoutY="107.0" text="%urg" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <ComboBox fx:id="servei" maxWidth="1.7976931348623157E308" onAction="#changePB" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="90.0" right="55.0" />
+         </GridPane.margin>
+      </ComboBox>
   </children>
 </GridPane>
