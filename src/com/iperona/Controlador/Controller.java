@@ -71,11 +71,8 @@ public class Controller {
                 llistaPacients.setItems(hospital.getLlistaAlta());
 
                 Stage pacientsMenu = new Stage();
-                pacientsMenu.getIcons().add(new Image(Main.class.getResourceAsStream("Vista/logo.png")));
-                pacientsMenu.setTitle(ResourceBundle.getBundle("args", Locale.getDefault()).getString("hospital"));
                 pacientsMenu.setScene(new Scene(root, 700, 430));
-                pacientsMenu.setResizable(false);
-                pacientsMenu.show();
+                loadStage(pacientsMenu);
                 break;
             case "viewMore":
                 if (llistaPacients.getSelectionModel().getSelectedItem() != null) {
@@ -95,11 +92,9 @@ public class Controller {
                     campUrgencia.setText(p.getUrgencia().getNomUrgencia());
 
                     Stage viewMore = new Stage();
-                    viewMore.getIcons().add(new Image(Main.class.getResourceAsStream("Vista/logo.png")));
-                    viewMore.setTitle(p.getCognom() + ", " + p.getNom());
                     viewMore.setScene(new Scene(root4, 550, 200));
-                    viewMore.setResizable(false);
-                    viewMore.show();
+                    loadStage(viewMore);
+                    viewMore.setTitle(p.getCognom() + ", " + p.getNom());
                 } else {
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setContentText(ResourceBundle.getBundle("args", Locale.getDefault()).getString("errorPacient"));
@@ -114,11 +109,8 @@ public class Controller {
                 Parent root2 = loader2.load();
 
                 Stage altaMenu = new Stage();
-                altaMenu.getIcons().add(new Image(Main.class.getResourceAsStream("Vista/logo.png")));
-                altaMenu.setTitle(ResourceBundle.getBundle("args", Locale.getDefault()).getString("hospital"));
                 altaMenu.setScene(new Scene(root2, 650, 430));
-                altaMenu.setResizable(false);
-                altaMenu.show();
+                loadStage(altaMenu);
                 servei.setItems(hospital.getLlistaServeis());
                 break;
             case "baixaPacients":
@@ -154,11 +146,8 @@ public class Controller {
                 servei.getSelectionModel().selectedItemProperty().addListener((observableValue, nothing, urgencia) -> mostraRegistreVoid(urgencia));
 
                 Stage logsMenu = new Stage();
-                logsMenu.getIcons().add(new Image(Main.class.getResourceAsStream("Vista/logo.png")));
-                logsMenu.setTitle(ResourceBundle.getBundle("args", Locale.getDefault()).getString("hospital"));
                 logsMenu.setScene(new Scene(root3, 650, 430));
-                logsMenu.setResizable(false);
-                logsMenu.show();
+                loadStage(logsMenu);
                 break;
             case "donarAlta":
                 if (progress.getProgress() >= 1) {
@@ -182,6 +171,13 @@ public class Controller {
                 }
                 break;
         }
+    }
+
+    private void loadStage(Stage stage) {
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("Vista/logo.png")));
+        stage.setTitle(ResourceBundle.getBundle("args", Locale.getDefault()).getString("hospital"));
+        stage.setResizable(false);
+        stage.show();
     }
 
     /**
