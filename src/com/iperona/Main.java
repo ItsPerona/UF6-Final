@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -21,6 +23,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+        Connection connection = DriverManager.getConnection("jdbc:derby:base1;create=true");
+
         Controller controller = new Controller();
         controller.Hospital(new Hospital());
 
@@ -33,6 +39,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 650, 430));
         primaryStage.setResizable(false);
         primaryStage.show();
+
     }
 
 

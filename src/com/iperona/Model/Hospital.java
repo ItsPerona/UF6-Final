@@ -28,6 +28,8 @@ public class Hospital {
         llistaAlta.add(new Pacient("Lucia", "Muñoz Sanchez", "44444444D", ResourceBundle.getBundle("args", Locale.getDefault()).getString("dona"), 64, llistaServeis.get(1), LocalDateTime.now()));
         llistaAlta.add(new Pacient("Laura", "Cruz Garcia", "55555555E", ResourceBundle.getBundle("args", Locale.getDefault()).getString("dona"), 28, llistaServeis.get(3), LocalDateTime.now()));
         llistaAlta.add(new Pacient("Ismael", "Perona Martinez", "47842185T", ResourceBundle.getBundle("args", Locale.getDefault()).getString("home"), 19, llistaServeis.get(6), LocalDateTime.now()));
+
+        registres.add(new Pacient("Lluis", "Andreu Arenal", "66666666F", ResourceBundle.getBundle("args", Locale.getDefault()).getString("home"), 27, llistaServeis.get(6), LocalDateTime.now()));
     }
 
     public ObservableList<Pacient> getLlistaAlta() {

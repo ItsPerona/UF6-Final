@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane hgap="10" maxHeight="-Infinity" style="-fx-background-color: LIGHTSKYBLUE;" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iperona.Controlador.Controller">
+  <columnConstraints>
+    <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+  </rowConstraints>
+  <children>
+    <Label text="%hospital" textFill="#940707" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <font>
+        <Font name="System Bold" size="14.0" />
+      </font></Label>
+    <Label text="%name" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+    <Label text="%surname" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+    <Label text="%dni" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+    <TextField fx:id="nom" onKeyReleased="#changePB" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <GridPane.margin>
+        <Insets left="3.0" right="3.0" />
+      </GridPane.margin>
+    </TextField>
+    <TextField fx:id="cognom" layoutX="123.0" layoutY="62.0" onKeyReleased="#changePB" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+      <GridPane.margin>
+        <Insets left="3.0" right="3.0" />
+      </GridPane.margin>
+    </TextField>
+    <TextField fx:id="dni" layoutX="123.0" layoutY="102.0" onKeyReleased="#changePB" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+      <GridPane.margin>
+        <Insets left="3.0" right="3.0" />
+      </GridPane.margin>
+    </TextField>
+    <Button fx:id="donarAlta" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#onClick" text="%altaBtn" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="10">
+      <GridPane.margin>
+        <Insets left="3.0" right="3.0" />
+      </GridPane.margin>
+    </Button>
+      <CheckBox fx:id="terms" mnemonicParsing="false" onAction="#changePB" text="%terms" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </CheckBox>
+      <Label layoutX="70.0" layoutY="67.0" text="%years" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <DatePicker fx:id="edat" onAction="#changePB" promptText="dd/mm/yyyy" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="90.0" right="10.0" />
+         </GridPane.margin></DatePicker>
+      <ProgressBar fx:id="progress" maxWidth="1.7976931348623157E308" progress="0.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="5.0" right="5.0" />
+         </GridPane.margin>
+      </ProgressBar>
+      <Label layoutX="371.0" layoutY="67.0" text="%sex" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <RadioButton fx:id="home" mnemonicParsing="false" onAction="#changePB" text="%home" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="35.0" />
+         </GridPane.margin>
+         <toggleGroup>
+            <ToggleGroup fx:id="sex" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="dona" layoutX="432.0" layoutY="107.0" mnemonicParsing="false" onAction="#changePB" text="%dona" toggleGroup="$sex" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Label layoutX="377.0" layoutY="107.0" text="%urg" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <ComboBox fx:id="servei" maxWidth="1.7976931348623157E308" onAction="#changePB" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="90.0" right="55.0" />
+         </GridPane.margin>
+      </ComboBox>
+  </children>
+</GridPane>
