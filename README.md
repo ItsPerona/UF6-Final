@@ -1,4 +1,4 @@
-# Treball UF5: Hospital
+# Treball UF6: Hospital (amb DataBase)
 
 L'aplicació et permet gestionar els pacients del hospital, les caràcteristiques del programa son les seguents:
 - Permet afegir un nou pacient amb el camps `Nom, Cognoms, DNI, Edat, Sexe, Urgencia...`
