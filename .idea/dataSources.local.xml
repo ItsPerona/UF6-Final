@@ -7,13 +7,9 @@
       </database-info>
       <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
-      <user-name>iperona</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema">
-            <name qname="@" />
-            <name qname="HOSPITAL" />
-          </node>
+          <node kind="schema" qname="HOSPITAL" />
         </introspection-scope>
       </schema-mapping>
     </data-source>

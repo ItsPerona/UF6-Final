@@ -27,6 +27,17 @@ public class Pacient {
         this.dataEntrada = dataEntrada;
     }
 
+    public Pacient(String nom, String cognom, String DNI, String sexe, int edat, Urgencies urgencia, LocalDateTime dataEntrada, LocalDateTime dataSortida) {
+        this.nom = nom;
+        this.cognom = cognom;
+        this.DNI = DNI;
+        this.sexe = sexe;
+        this.edat = edat;
+        this.urgencia = urgencia;
+        this.dataEntrada = dataEntrada;
+        this.dataSortida = dataSortida;
+    }
+
     public void setDataEntrada(LocalDateTime dataEntrada) {
         this.dataEntrada = dataEntrada;
     }

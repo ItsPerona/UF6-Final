@@ -24,9 +24,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        Connection connection = DriverManager.getConnection("jdbc:derby:base1;create=true");
-
         Controller controller = new Controller();
         controller.Hospital(new Hospital());
 

@@ -3,7 +3,14 @@ package com.iperona.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -14,22 +21,68 @@ public class Hospital {
     private final ObservableList<Urgencies> llistaServeis = FXCollections.observableArrayList();
 
     public Hospital() {
-        llistaServeis.add(new Urgencies("Cirugia General"));
-        llistaServeis.add(new Urgencies("Pediatria"));
-        llistaServeis.add(new Urgencies("Traumatologia"));
-        llistaServeis.add(new Urgencies("Cardiologia"));
-        llistaServeis.add(new Urgencies("Dermatologia"));
-        llistaServeis.add(new Urgencies("Neurologia"));
-        llistaServeis.add(new Urgencies("Altres"));
+        loadUrgencies();
+        loadPacients();
+    }
 
-        llistaAlta.add(new Pacient("Aida", "Barroso Dominguez", "11111111A", ResourceBundle.getBundle("args", Locale.getDefault()).getString("dona"), 23, llistaServeis.get(4), LocalDateTime.now()));
-        llistaAlta.add(new Pacient("Pere", "Cliville Bazan", "22222222B", ResourceBundle.getBundle("args", Locale.getDefault()).getString("home"), 19, llistaServeis.get(5), LocalDateTime.now()));
-        llistaAlta.add(new Pacient("Joan", "Hierro Mulet", "33333333C", ResourceBundle.getBundle("args", Locale.getDefault()).getString("home"), 36, llistaServeis.get(0), LocalDateTime.now()));
-        llistaAlta.add(new Pacient("Lucia", "Muñoz Sanchez", "44444444D", ResourceBundle.getBundle("args", Locale.getDefault()).getString("dona"), 64, llistaServeis.get(1), LocalDateTime.now()));
-        llistaAlta.add(new Pacient("Laura", "Cruz Garcia", "55555555E", ResourceBundle.getBundle("args", Locale.getDefault()).getString("dona"), 28, llistaServeis.get(3), LocalDateTime.now()));
-        llistaAlta.add(new Pacient("Ismael", "Perona Martinez", "47842185T", ResourceBundle.getBundle("args", Locale.getDefault()).getString("home"), 19, llistaServeis.get(6), LocalDateTime.now()));
+    private void loadPacients() {
+        Connection connection = new DataBase().start();
+        try {
+            Statement ordre = connection.createStatement();
+            ResultSet resultSet =  ordre.executeQuery("SELECT * FROM HOSPITAL.PACIENTS");
+            while (resultSet.next()) {
+                Urgencies urg = null;
 
-        registres.add(new Pacient("Lluis", "Andreu Arenal", "66666666F", ResourceBundle.getBundle("args", Locale.getDefault()).getString("home"), 27, llistaServeis.get(6), LocalDateTime.now()));
+                for (int i = 0; i < llistaServeis.size(); i++) {
+                    if (llistaServeis.get(i).getNomUrgencia().equals(resultSet.getString(6))) {
+                        urg = llistaServeis.get(i);
+                    }
+                }
+
+                if (resultSet.getString(8) != null) {
+                    registres.add(
+                            new Pacient(resultSet.getString(1)
+                                    , resultSet.getString(2)
+                                    , resultSet.getString(3)
+                                    , resultSet.getString(4)
+                                    , resultSet.getInt(5)
+                                    , urg
+                                    , LocalDateTime.parse(resultSet.getString(7), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+                                    , LocalDateTime.parse(resultSet.getString(8), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+                            ));
+                } else {
+                    llistaAlta.add(
+                            new Pacient(resultSet.getString(1)
+                                    , resultSet.getString(2)
+                                    , resultSet.getString(3)
+                                    , resultSet.getString(4)
+                                    , resultSet.getInt(5)
+                                    , urg
+                                    , LocalDateTime.parse(resultSet.getString(7), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+                            ));
+                }
+            }
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void loadUrgencies() {
+        Connection connection = new DataBase().start();
+        try {
+            Statement ordre = connection.createStatement();
+            ResultSet resultSet =  ordre.executeQuery("SELECT * FROM HOSPITAL.URGENCIES");
+            while (resultSet.next()) {
+                llistaServeis.add(
+                        new Urgencies(resultSet.getString(1)
+                                , resultSet.getString(2)
+                        ));
+            }
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public ObservableList<Pacient> getLlistaAlta() {
