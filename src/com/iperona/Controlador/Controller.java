@@ -155,7 +155,7 @@ public class Controller {
                 if (progress.getProgress() >= 1) {
                     String sexe;
                     LocalDate edatLocal = edat.getValue();
-                    int edatInt;
+                    int edatInt; boolean existeix = false;
 
                     if (home.isSelected()) {
                         sexe = ResourceBundle.getBundle("args", Locale.getDefault()).getString("home");
@@ -165,9 +165,19 @@ public class Controller {
                     Period periode = Period.between(edatLocal, LocalDate.now());
                     edatInt = periode.getYears();
                     Pacient p = new Pacient(nom.getText(), cognom.getText(), dni.getText(), sexe, edatInt, servei.getValue(), LocalDateTime.now());
-                    hospital.getLlistaAlta().add(p);
-                    llistaPacients.setItems(hospital.getLlistaAlta());
-                    hospital.altaPacient(p);
+
+                    for (int i = 0; i < hospital.getLlistaAlta().size(); i++) {
+                        if (hospital.getLlistaAlta().get(i).getDNI().equals(p.getDNI())) {
+                            existeix = true;
+                            alert.setContentText("Ja hi ha un pacient a l'hospital amb aquest DNI");
+                            alert.show();
+                        }
+                    }
+                    if (!existeix) {
+                        hospital.getLlistaAlta().add(p);
+                        llistaPacients.setItems(hospital.getLlistaAlta());
+                        hospital.altaPacient(p);
+                    }
                 } else {
                     alert.setContentText(ResourceBundle.getBundle("args", Locale.getDefault()).getString("camps_buits"));
                     alert.show();

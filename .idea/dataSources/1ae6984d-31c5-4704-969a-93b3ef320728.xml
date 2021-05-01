@@ -59,9 +59,10 @@
       <Position>8</Position>
       <DataType>VARCHAR(80)|12s</DataType>
     </column>
-    <index id="24" parent="14" name="SQL0000000082-6009823d-0178-e8f2-f431-0000076b4920">
+    <index id="24" parent="14" name="SQL0000000001-f55fc0a6-0179-2894-02a5-0000076656e8">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>DNI</ColNames>
+      <ColNames>DNI
+DATAENTRADA</ColNames>
       <Unique>1</Unique>
     </index>
     <index id="25" parent="14" name="SQL0000000002-8f3600b1-0179-137e-9ecf-0000076700a0">
@@ -69,7 +70,8 @@
       <ColNames>URGENCIA</ColNames>
     </index>
     <key id="26" parent="14" name="PACIENTS_PK">
-      <ColNames>DNI</ColNames>
+      <ColNames>DNI
+DATAENTRADA</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="27" parent="14" name="URGENCIES_FK">
