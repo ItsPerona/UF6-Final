@@ -23,4 +23,5 @@ L'aplicació et permet gestionar els pacients del hospital, les caràcteristique
         > Si la llista està buida apareix missatge d'error
 - Al donar de baixa un pacient, es guardarà als Registres
     * Els registres permeten mostrar tots els pacients o ordenar per urgencia.
+- L'aplicació serà gestionada a través d'una base de dades amb 1 o mes taules.
 - El programa està disponible en Anglès, Català i Castellà

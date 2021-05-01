@@ -3,10 +3,7 @@ package com.iperona.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -83,6 +80,42 @@ public class Hospital {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public boolean altaPacient(Pacient p){
+        boolean ok = false;
+        Connection connection = new DataBase().start();
+        try {
+            PreparedStatement ordre = connection.prepareStatement("INSERT INTO HOSPITAL.PACIENTS VALUES (?,?,?,?,?,?,?,?)");
+            ordre.setString(1, p.getNom());
+            ordre.setString(2, p.getCognom());
+            ordre.setString(3, p.getDNI());
+            ordre.setString(4, p.getSexe());
+            ordre.setInt(5, p.getEdat());
+            ordre.setString(6, p.getUrgencia().getNomUrgencia());
+            ordre.setString(7, LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            ordre.setString(8, null);
+            ok = ordre.executeUpdate() > 0;
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ok;
+    }
+
+    public boolean baixaPacient(Pacient p){
+        boolean ok = false;
+        Connection connection = new DataBase().start();
+        try {
+            PreparedStatement addRegistres = connection.prepareStatement("UPDATE HOSPITAL.PACIENTS SET DATASORTIDA=? WHERE DNI=?");
+            addRegistres.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            addRegistres.setString(2, p.getDNI());
+            ok = addRegistres.executeUpdate() > 0;
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ok;
     }
 
     public ObservableList<Pacient> getLlistaAlta() {

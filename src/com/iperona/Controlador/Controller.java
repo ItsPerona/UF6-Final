@@ -120,11 +120,13 @@ public class Controller {
                         temp.setDataSortida(LocalDateTime.now());
                         hospital.getRegistres().add(temp);
                         hospital.getLlistaAlta().remove(llistaPacients.getSelectionModel().getSelectedItem());
+                        hospital.baixaPacient(temp);
                     } else {
                         Pacient temp = hospital.getLlistaAlta().get(0);
                         temp.setDataSortida(LocalDateTime.now());
                         hospital.getRegistres().add(temp);
                         hospital.getLlistaAlta().remove(0);
+                        hospital.baixaPacient(temp);
                     }
                 } else {
                     alert.setAlertType(Alert.AlertType.ERROR);
@@ -165,6 +167,7 @@ public class Controller {
                     Pacient p = new Pacient(nom.getText(), cognom.getText(), dni.getText(), sexe, edatInt, servei.getValue(), LocalDateTime.now());
                     hospital.getLlistaAlta().add(p);
                     llistaPacients.setItems(hospital.getLlistaAlta());
+                    hospital.altaPacient(p);
                 } else {
                     alert.setContentText(ResourceBundle.getBundle("args", Locale.getDefault()).getString("camps_buits"));
                     alert.show();
