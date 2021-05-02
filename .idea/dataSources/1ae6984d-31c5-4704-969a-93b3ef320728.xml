@@ -18,90 +18,121 @@
     <schema id="11" parent="1" name="SYSIBM"/>
     <schema id="12" parent="1" name="SYSPROC"/>
     <schema id="13" parent="1" name="SYSSTAT"/>
-    <table id="14" parent="3" name="PACIENTS"/>
-    <table id="15" parent="3" name="URGENCIES"/>
-    <column id="16" parent="14" name="NOM">
+    <table id="14" parent="3" name="ESPECIALISTES"/>
+    <table id="15" parent="3" name="PACIENTS"/>
+    <table id="16" parent="3" name="URGENCIES"/>
+    <column id="17" parent="14" name="NOMCOMPLET">
+      <Position>1</Position>
+      <DataType>VARCHAR(60)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="18" parent="14" name="DNI">
+      <Position>2</Position>
+      <DataType>VARCHAR(12)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="19" parent="14" name="SQL0000000002-cbe9405a-0179-2cd8-9d41-000007663418">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>DNI</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="20" parent="14" name="ESPECIALISTES_PK">
+      <ColNames>DNI</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="21" parent="15" name="NOM">
       <Position>1</Position>
       <DataType>VARCHAR(25)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="17" parent="14" name="COGNOMS">
+    <column id="22" parent="15" name="COGNOMS">
       <Position>2</Position>
       <DataType>VARCHAR(50)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="18" parent="14" name="DNI">
+    <column id="23" parent="15" name="DNI">
       <Position>3</Position>
       <DataType>VARCHAR(12)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="19" parent="14" name="SEXE">
+    <column id="24" parent="15" name="SEXE">
       <Position>4</Position>
       <DataType>VARCHAR(10)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="20" parent="14" name="EDAT">
+    <column id="25" parent="15" name="EDAT">
       <Position>5</Position>
       <DataType>INTEGER|4s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="21" parent="14" name="URGENCIA">
+    <column id="26" parent="15" name="URGENCIA">
       <Position>6</Position>
       <DataType>VARCHAR(50)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="22" parent="14" name="DATAENTRADA">
+    <column id="27" parent="15" name="DATAENTRADA">
       <Position>7</Position>
       <DataType>VARCHAR(50)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="23" parent="14" name="DATASORTIDA">
+    <column id="28" parent="15" name="DATASORTIDA">
       <Position>8</Position>
       <DataType>VARCHAR(80)|12s</DataType>
     </column>
-    <index id="24" parent="14" name="SQL0000000001-f55fc0a6-0179-2894-02a5-0000076656e8">
+    <index id="29" parent="15" name="SQL0000000001-f55fc0a6-0179-2894-02a5-0000076656e8">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>DNI
 DATAENTRADA</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="25" parent="14" name="SQL0000000002-8f3600b1-0179-137e-9ecf-0000076700a0">
+    <index id="30" parent="15" name="SQL0000000002-8f3600b1-0179-137e-9ecf-0000076700a0">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>URGENCIA</ColNames>
     </index>
-    <key id="26" parent="14" name="PACIENTS_PK">
+    <key id="31" parent="15" name="PACIENTS_PK">
       <ColNames>DNI
 DATAENTRADA</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="27" parent="14" name="URGENCIES_FK">
+    <foreign-key id="32" parent="15" name="URGENCIES_FK">
       <ColNames>URGENCIA</ColNames>
       <RefTableName>URGENCIES</RefTableName>
       <RefKeyName>URGENCIES_PK</RefKeyName>
       <RefColNames>URGENCIA</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="28" parent="15" name="URGENCIA">
+    <column id="33" parent="16" name="URGENCIA">
       <Position>1</Position>
       <DataType>VARCHAR(50)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="29" parent="15" name="ESPECIALISTA">
+    <column id="34" parent="16" name="ESPECIALISTA">
       <Position>2</Position>
-      <DataType>VARCHAR(50)|12s</DataType>
+      <DataType>VARCHAR(12)|12s</DataType>
     </column>
-    <index id="30" parent="15" name="SQL0000000000-787c0020-0179-137e-9ecf-0000076700a0">
+    <index id="35" parent="16" name="SQL0000000000-787c0020-0179-137e-9ecf-0000076700a0">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>URGENCIA</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="31" parent="15" name="URGENCIES_URGENCIA_UINDEX">
+    <index id="36" parent="16" name="URGENCIES_URGENCIA_UINDEX">
       <ColNames>URGENCIA</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="32" parent="15" name="URGENCIES_PK">
+    <index id="37" parent="16" name="SQL0000000000-c42d805d-0179-2f39-b96a-0000076656e8">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ESPECIALISTA</ColNames>
+    </index>
+    <key id="38" parent="16" name="URGENCIES_PK">
       <ColNames>URGENCIA</ColNames>
       <Primary>1</Primary>
     </key>
+    <foreign-key id="39" parent="16" name="URGENCIES_ES_FK">
+      <ColNames>ESPECIALISTA</ColNames>
+      <RefTableName>ESPECIALISTES</RefTableName>
+      <RefKeyName>ESPECIALISTES_PK</RefKeyName>
+      <RefColNames>DNI</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
   </database-model>
 </dataSource>

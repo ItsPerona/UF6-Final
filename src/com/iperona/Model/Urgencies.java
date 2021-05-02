@@ -3,11 +3,11 @@ package com.iperona.Model;
 public class Urgencies {
 
     private final String nomUrgencia;
-    private final String especialista;
+    private final String DNIEspecialista;
 
-    public Urgencies(String urg, String especialista) {
+    public Urgencies(String urg, String DNIEspecialista) {
         this.nomUrgencia = urg;
-        this.especialista = especialista;
+        this.DNIEspecialista = DNIEspecialista;
     }
 
 
@@ -21,6 +21,6 @@ public class Urgencies {
     }
 
     public String getEspecialista() {
-        return especialista;
+        return DNIEspecialista;
     }
 }

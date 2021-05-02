@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane hgap="10" maxHeight="-Infinity" style="-fx-background-color: LIGHTSKYBLUE;" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iperona.Controlador.Controller">
+  <columnConstraints>
+    <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+  </rowConstraints>
+  <children>
+    <Label text="%hospital" textFill="#940707" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <font>
+        <Font name="System Bold" size="14.0" />
+      </font></Label>
+    <Label text="%urg" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+    <Label text="%disp" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+    <TextField fx:id="nomUrg" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+      <GridPane.margin>
+        <Insets left="3.0" right="3.0" />
+      </GridPane.margin>
+    </TextField>
+    <Button fx:id="altaUrg" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#onClick" text="%altaBtn" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9">
+      <GridPane.margin>
+        <Insets left="3.0" right="3.0" />
+      </GridPane.margin>
+    </Button>
+      <ComboBox fx:id="llistaDisponibles" maxWidth="1.7976931348623157E308" GridPane.columnSpan="4" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets left="50.0" right="50.0" />
+         </GridPane.margin></ComboBox>
+  </children>
+</GridPane>

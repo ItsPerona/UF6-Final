@@ -1,14 +1,17 @@
 package com.iperona.Controlador;
 
 import com.iperona.Main;
+import com.iperona.Model.Especialista;
 import com.iperona.Model.Hospital;
 import com.iperona.Model.Pacient;
 import com.iperona.Model.Urgencies;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -51,6 +54,15 @@ public class Controller {
     @FXML private Label campEdat;
     @FXML private Label campSexe;
     @FXML private Label campUrgencia;
+
+    // Objectes dels Especialistes
+    @FXML private TextField nomEsp;
+    @FXML private TextField dniEsp;
+    @FXML private ComboBox<Especialista> llistaEspecialistes;
+
+    // Objectes de les urgencies
+    @FXML private TextField nomUrg;
+    @FXML private ComboBox<Especialista> llistaDisponibles;
 
 
     /**
@@ -151,6 +163,50 @@ public class Controller {
                 logsMenu.setScene(new Scene(root3, 650, 430));
                 loadStage(logsMenu);
                 break;
+            case "gUrgencies":
+                Controller e1 = this;
+
+                FXMLLoader l1 = new FXMLLoader(getClass().getResource("../Vista/gestorUrg.fxml"), ResourceBundle.getBundle("args", Locale.getDefault()));
+                l1.setControllerFactory(c -> e1);
+                Parent r1 = l1.load();
+
+                boolean done = false;
+                ObservableList<Especialista> temp = FXCollections.observableArrayList();
+                for (int i = 0; i < hospital.getLlistaServeis().size(); i++) {
+                    for (int j = 0; j < hospital.getLlistaEspecialistes().size(); j++) {
+                        if (!hospital.getLlistaServeis().get(i).getEspecialista().equals(hospital.getLlistaEspecialistes().get(j).getDNI()) && !done) {
+                            llistaDisponibles.getItems().add(hospital.getLlistaEspecialistes().get(j));
+                            done = true;
+                        }
+                    }
+                }
+
+                boolean disp = true;
+                if (llistaDisponibles.getItems().size() == 0) {
+                    disp = false;
+                }
+
+                Stage menuUrg = new Stage();
+                menuUrg.setScene(new Scene(r1, 350, 400));
+                loadStage(menuUrg);
+                if (!disp) {
+                    alert.setContentText("Alerta: No hi han Especialistes Disponibles");
+                    alert.show();
+                }
+                break;
+            case "gEspecialistes":
+                Controller e2 = this;
+
+                FXMLLoader l2 = new FXMLLoader(getClass().getResource("../Vista/gestorEsp.fxml"), ResourceBundle.getBundle("args", Locale.getDefault()));
+                l2.setControllerFactory(c -> e2);
+                Parent r2 = l2.load();
+
+                llistaEspecialistes.setItems(hospital.getLlistaEspecialistes());
+
+                Stage menuEsp = new Stage();
+                menuEsp.setScene(new Scene(r2, 650, 250));
+                loadStage(menuEsp);
+                break;
             case "donarAlta":
                 if (progress.getProgress() >= 1) {
                     String sexe;
@@ -183,6 +239,42 @@ public class Controller {
                     alert.show();
                 }
                 break;
+            case "donarAltaEsp":
+                boolean existent = false;
+                if (!nomEsp.getText().equals("") && !dniEsp.getText().equals("")) {
+                    for (int i = 0; i < hospital.getLlistaEspecialistes().size(); i++) {
+                        if (hospital.getLlistaEspecialistes().get(i).getDNI().equals(dniEsp.getText())) {
+                            existent = true;
+                        }
+                    }
+                    if (!existent) {
+                        Especialista esp = new Especialista(nomEsp.getText(), dniEsp.getText());
+                        hospital.getLlistaEspecialistes().add(esp);
+                        hospital.altaEspecialista(esp);
+                    }
+                }
+                break;
+            case "bajaEsp":
+                if (llistaEspecialistes.getSelectionModel().getSelectedItem() != null) {
+                    Especialista esp = llistaEspecialistes.getSelectionModel().getSelectedItem();
+                    hospital.getLlistaEspecialistes().remove(esp);
+                    hospital.baixaEspecialista(esp);
+                }
+                break;
+            default:
+                existent = false;
+                if (llistaDisponibles.getSelectionModel().getSelectedItem() != null && !nomUrg.getText().equals("")) {
+                    for (int i = 0; i < hospital.getLlistaServeis().size(); i++) {
+                        if (hospital.getLlistaServeis().get(i).getNomUrgencia().equals(nomUrg.getText())) {
+                            existent = true;
+                        }
+                    }
+                    if (!existent) {
+                        Urgencies novaUrgencia = new Urgencies(nomUrg.getText(), llistaDisponibles.getSelectionModel().getSelectedItem().getDNI());
+                        hospital.getLlistaServeis().add(novaUrgencia);
+                        hospital.addUrgencia(novaUrgencia);
+                    }
+                }
         }
     }
 

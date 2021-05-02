@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Projecte M3 UF5 - Hospital
+ * Projecte M3 UF6 - Hospital
  * @author ItsPerona (Ismael Perona)
  */
 

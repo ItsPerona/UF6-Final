@@ -1,4 +1,10 @@
-UF6 Hospital v2.1 bug-fixes:
+UF6 Hospital v2.2:
+
+- Nueva Tabla "Especialistas"
+- Opción de poder crear nuevos servicios de Urgencia
+- Opción de poder crear y eliminar Especialistas
+
+UF6 Hospital v2.1:
 
 - Claves Primarias de Paciente ahora son DNI & DATAENTRADA (Antes DNI)
 - Ahora el mismo paciente puede entrar en el hospital mas de una vez siempre y cuando no esté ya dentro

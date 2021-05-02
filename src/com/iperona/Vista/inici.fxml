@@ -18,12 +18,22 @@
             <Font name="System Bold" size="18.0" />
          </font></Label>
       <Pane style="-fx-background-color: LIGHTSKYBLUE;" GridPane.columnSpan="6" GridPane.rowIndex="9" GridPane.rowSpan="3" />
-      <Button fx:id="pacientsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick" text="%gPacients" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10">
+      <Button fx:id="pacientsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick" text="%gPacients" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.rowSpan="2">
          <GridPane.margin>
             <Insets left="10.0" right="10.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="registresBtn" layoutX="350.0" layoutY="383.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick" text="%logs" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10">
+      <Button fx:id="registresBtn" layoutX="350.0" layoutY="383.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick" text="%logs" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="2">
+         <GridPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="gEspecialistes" layoutX="350.0" layoutY="363.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick" text="%gEsp" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.rowSpan="2">
+         <GridPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="gUrgencies" layoutX="130.0" layoutY="388.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick" text="%gUrg" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.rowSpan="2">
          <GridPane.margin>
             <Insets left="10.0" right="10.0" />
          </GridPane.margin>
