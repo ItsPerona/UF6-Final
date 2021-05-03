@@ -14,12 +14,18 @@ public class Hospital {
     private final ObservableList<Urgencies> llistaServeis = FXCollections.observableArrayList();
     private final ObservableList<Especialista> llistaEspecialistes = FXCollections.observableArrayList();
 
+    /**
+     * Carrega els Pacients, Doctors i Urgencies
+     */
     public Hospital() {
         loadUrgencies();
         loadEspecialistes();
         loadPacients();
     }
 
+    /**
+     * SELECT
+     */
     private void loadPacients() {
         Connection connection = new DataBase().start();
         try {
@@ -28,12 +34,14 @@ public class Hospital {
             while (resultSet.next()) {
                 Urgencies urg = null;
 
+                // Busca la urgencia i guardala
                 for (Urgencies llistaServei : llistaServeis) {
                     if (llistaServei.getNomUrgencia().equals(resultSet.getString(6))) {
                         urg = llistaServei;
                     }
                 }
 
+                // Si te Data de Sortida es un Pacient que no està al hospital (registre) / else / Es un pacient que està al hospital (llistaAlta)
                 if (resultSet.getString(8) != null) {
                     registres.add(
                             new Pacient(resultSet.getString(1)
@@ -63,6 +71,9 @@ public class Hospital {
         }
     }
 
+    /**
+     * SELECT
+     */
     private void loadUrgencies() {
         Connection connection = new DataBase().start();
         try {
@@ -80,13 +91,15 @@ public class Hospital {
         }
     }
 
+    /**
+     * SELECT
+     */
     private void loadEspecialistes() {
         Connection connection = new DataBase().start();
         try {
             Statement ordre = connection.createStatement();
             ResultSet resultSet =  ordre.executeQuery("SELECT * FROM HOSPITAL.ESPECIALISTES");
             while (resultSet.next()) {
-
                 llistaEspecialistes.add(
                         new Especialista(resultSet.getString(1)
                                 , resultSet.getString(2)
@@ -98,6 +111,9 @@ public class Hospital {
         }
     }
 
+    /**
+     * INSERT
+     */
     public boolean altaPacient(Pacient p){
         boolean ok = false;
         Connection connection = new DataBase().start();
@@ -119,21 +135,9 @@ public class Hospital {
         return ok;
     }
 
-    public boolean baixaPacient(Pacient p){
-        boolean ok = false;
-        Connection connection = new DataBase().start();
-        try {
-            PreparedStatement addRegistres = connection.prepareStatement("UPDATE HOSPITAL.PACIENTS SET DATASORTIDA=? WHERE DNI=?");
-            addRegistres.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
-            addRegistres.setString(2, p.getDNI());
-            ok = addRegistres.executeUpdate() > 0;
-            connection.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return ok;
-    }
-
+    /**
+     * INSERT
+     */
     public boolean altaEspecialista(Especialista e){
         boolean ok = false;
         Connection connection = new DataBase().start();
@@ -149,20 +153,9 @@ public class Hospital {
         return ok;
     }
 
-    public boolean baixaEspecialista(Especialista e){
-        boolean ok = false;
-        Connection connection = new DataBase().start();
-        try {
-            PreparedStatement ordre = connection.prepareStatement("DELETE FROM HOSPITAL.ESPECIALISTES WHERE DNI=?");
-            ordre.setString(1, e.getDNI());
-            ok = ordre.executeUpdate() > 0;
-            connection.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return ok;
-    }
-
+    /**
+     * INSERT
+     */
     public boolean addUrgencia(Urgencies u){
         boolean ok = false;
         Connection connection = new DataBase().start();
@@ -178,6 +171,47 @@ public class Hospital {
         return ok;
     }
 
+    /**
+     * UPDATE
+     */
+    public boolean baixaPacient(Pacient p){
+        boolean ok = false;
+        Connection connection = new DataBase().start();
+        try {
+            // Actualitza el Pacient i assigna una data de Sortida formatada
+            PreparedStatement addRegistres = connection.prepareStatement("UPDATE HOSPITAL.PACIENTS SET DATASORTIDA=? WHERE DNI=?");
+            addRegistres.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            addRegistres.setString(2, p.getDNI());
+            ok = addRegistres.executeUpdate() > 0;
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ok;
+    }
+
+    /**
+     * DELETE
+     */
+    public boolean baixaEspecialista(Especialista e){
+        boolean ok = false;
+        Connection connection = new DataBase().start();
+        try {
+            PreparedStatement ordre = connection.prepareStatement("DELETE FROM HOSPITAL.ESPECIALISTES WHERE DNI=?");
+            ordre.setString(1, e.getDNI());
+            ok = ordre.executeUpdate() > 0;
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ok;
+    }
+
+
+
+    /**
+     * RETURNS
+     */
     public ObservableList<Pacient> getLlistaAlta() {
         return llistaAlta;
     }

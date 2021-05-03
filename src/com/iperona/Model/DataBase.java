@@ -9,6 +9,11 @@ public class DataBase {
     private final String DB = "jdbc:derby:base1;create=true";
     private final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 
+
+    /**
+     * Estableix conexió amb la Base de Dades
+     * @return la Conexió
+     */
     public Connection start() {
         Connection connection = null;
         try {

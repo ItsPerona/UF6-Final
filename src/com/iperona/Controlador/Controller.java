@@ -96,6 +96,7 @@ public class Controller {
 
                     Pacient p = llistaPacients.getSelectionModel().getSelectedItem();
 
+                    // Introdueix als Labels els atributs del Pacient
                     campNom.setText(p.getNom());
                     campCognom.setText(p.getCognom());
                     campDNI.setText(p.getDNI());
@@ -108,6 +109,7 @@ public class Controller {
                     loadStage(viewMore);
                     viewMore.setTitle(p.getCognom() + ", " + p.getNom());
                 } else {
+                    // Si no hi ha cap pacient seleccionat
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setContentText(ResourceBundle.getBundle("args", Locale.getDefault()).getString("errorPacient"));
                     alert.show();
@@ -126,14 +128,18 @@ public class Controller {
                 servei.setItems(hospital.getLlistaServeis());
                 break;
             case "baixaPacients":
+                // Si existeixen pacients
                 if (!llistaPacients.getItems().isEmpty()) {
+                    // Si hi ha un pacient seleccionat
                     if (llistaPacients.getSelectionModel().getSelectedItem() != null) {
                         Pacient temp = llistaPacients.getSelectionModel().getSelectedItem();
+                        // Actualitza la hora de sortida
                         temp.setDataSortida(LocalDateTime.now());
                         hospital.getRegistres().add(temp);
                         hospital.getLlistaAlta().remove(llistaPacients.getSelectionModel().getSelectedItem());
                         hospital.baixaPacient(temp);
                     } else {
+                        // Si no hi ha cap seleccionat, selecciona automaticament el primer
                         Pacient temp = hospital.getLlistaAlta().get(0);
                         temp.setDataSortida(LocalDateTime.now());
                         hospital.getRegistres().add(temp);
@@ -141,6 +147,7 @@ public class Controller {
                         hospital.baixaPacient(temp);
                     }
                 } else {
+                    // Si no existeixen pacients
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setContentText(ResourceBundle.getBundle("args", Locale.getDefault()).getString("empty"));
                     alert.show();
@@ -153,10 +160,13 @@ public class Controller {
                 loader3.setControllerFactory(c -> controller3);
                 Parent root3 = loader3.load();
 
+                // Omple la combobox de serveis
                 servei.setItems(hospital.getLlistaServeis());
+                // Si existeixen registres carregals
                 if (hospital.getRegistres() != null) {
                     registres.setItems(hospital.getRegistres());
                 }
+                // Si es selecciona un objecte de la combobox executa el mètode mostraRegistreVoid
                 servei.getSelectionModel().selectedItemProperty().addListener((observableValue, nothing, urgencia) -> mostraRegistreVoid(urgencia));
 
                 Stage logsMenu = new Stage();
@@ -170,8 +180,8 @@ public class Controller {
                 l1.setControllerFactory(c -> e1);
                 Parent r1 = l1.load();
 
+                // Nomes es podrá crear una urgencia si existeix un especialista que no tingui cap urgencia ja assignada
                 boolean done = false;
-                ObservableList<Especialista> temp = FXCollections.observableArrayList();
                 for (int i = 0; i < hospital.getLlistaServeis().size(); i++) {
                     for (int j = 0; j < hospital.getLlistaEspecialistes().size(); j++) {
                         if (!hospital.getLlistaServeis().get(i).getEspecialista().equals(hospital.getLlistaEspecialistes().get(j).getDNI()) && !done) {
@@ -181,6 +191,7 @@ public class Controller {
                     }
                 }
 
+                // Boolean per veure si hi han especialistes disponibles
                 boolean disp = true;
                 if (llistaDisponibles.getItems().size() == 0) {
                     disp = false;
@@ -189,6 +200,7 @@ public class Controller {
                 Stage menuUrg = new Stage();
                 menuUrg.setScene(new Scene(r1, 350, 400));
                 loadStage(menuUrg);
+                // Alerta al obrir el menu si no hi han especialistes disponibles
                 if (!disp) {
                     alert.setContentText("Alerta: No hi han Especialistes Disponibles");
                     alert.show();
@@ -208,20 +220,24 @@ public class Controller {
                 loadStage(menuEsp);
                 break;
             case "donarAlta":
+                // Si tots els camps están complerts:
                 if (progress.getProgress() >= 1) {
                     String sexe;
                     LocalDate edatLocal = edat.getValue();
                     int edatInt; boolean existeix = false;
 
+                    // Pasa el sexe del Pacient a String depenent del idioma
                     if (home.isSelected()) {
                         sexe = ResourceBundle.getBundle("args", Locale.getDefault()).getString("home");
                     } else {
                         sexe = ResourceBundle.getBundle("args", Locale.getDefault()).getString("dona");
                     }
+                    // Pasa la data de naixement a la edat actual
                     Period periode = Period.between(edatLocal, LocalDate.now());
                     edatInt = periode.getYears();
                     Pacient p = new Pacient(nom.getText(), cognom.getText(), dni.getText(), sexe, edatInt, servei.getValue(), LocalDateTime.now());
 
+                    // Comprova que no existeixi ja aquest pacient (mateix dni)
                     for (int i = 0; i < hospital.getLlistaAlta().size(); i++) {
                         if (hospital.getLlistaAlta().get(i).getDNI().equals(p.getDNI())) {
                             existeix = true;
@@ -229,7 +245,7 @@ public class Controller {
                             alert.show();
                         }
                     }
-                    if (!existeix) {
+                    if (!existeix) { // Si no existeix afegeix-lo a la basedades
                         hospital.getLlistaAlta().add(p);
                         llistaPacients.setItems(hospital.getLlistaAlta());
                         hospital.altaPacient(p);
@@ -241,12 +257,15 @@ public class Controller {
                 break;
             case "donarAltaEsp":
                 boolean existent = false;
+                // Comprova que els camps no estàn buits
                 if (!nomEsp.getText().equals("") && !dniEsp.getText().equals("")) {
+                    // Comprova que no existeix un Especialista amb el mateix DNI
                     for (int i = 0; i < hospital.getLlistaEspecialistes().size(); i++) {
                         if (hospital.getLlistaEspecialistes().get(i).getDNI().equals(dniEsp.getText())) {
                             existent = true;
                         }
                     }
+                    // Si no existeix, crea-ho
                     if (!existent) {
                         Especialista esp = new Especialista(nomEsp.getText(), dniEsp.getText());
                         hospital.getLlistaEspecialistes().add(esp);
@@ -255,6 +274,7 @@ public class Controller {
                 }
                 break;
             case "bajaEsp":
+                // Dona de baixa el Especialista seleccionat
                 if (llistaEspecialistes.getSelectionModel().getSelectedItem() != null) {
                     Especialista esp = llistaEspecialistes.getSelectionModel().getSelectedItem();
                     hospital.getLlistaEspecialistes().remove(esp);
@@ -263,12 +283,15 @@ public class Controller {
                 break;
             default:
                 existent = false;
+                // Comprova que els camps no son buits
                 if (llistaDisponibles.getSelectionModel().getSelectedItem() != null && !nomUrg.getText().equals("")) {
+                    // Comprova que no existeixi una urgencia amb el mateix nom
                     for (int i = 0; i < hospital.getLlistaServeis().size(); i++) {
                         if (hospital.getLlistaServeis().get(i).getNomUrgencia().equals(nomUrg.getText())) {
                             existent = true;
                         }
                     }
+                    // Si no existeix, crea-ho
                     if (!existent) {
                         Urgencies novaUrgencia = new Urgencies(nomUrg.getText(), llistaDisponibles.getSelectionModel().getSelectedItem().getDNI());
                         hospital.getLlistaServeis().add(novaUrgencia);
@@ -278,7 +301,13 @@ public class Controller {
         }
     }
 
+    /**
+     * Parametres per defecte de tots els Stages (Titol, Icona...)
+     * @param stage el stage a crear
+     */
+
     private void loadStage(Stage stage) {
+        // Parametres per defecte de tots els Stages
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("Vista/logo.png")));
         stage.setTitle(ResourceBundle.getBundle("args", Locale.getDefault()).getString("hospital"));
         stage.setResizable(false);
@@ -291,6 +320,7 @@ public class Controller {
      * @param e un event
      */
     public void menus(Event e) {
+        // Sortir del stage actual ( on s'ha clicat el botó)
         Stage stage = (Stage) exit.getScene().getWindow();
         stage.close();
     }
@@ -301,15 +331,21 @@ public class Controller {
      * @param urgencia la urgencia seleccionada
      */
     private void mostraRegistreVoid(Urgencies urgencia) {
+        // Introdueix tots els pacients a la ListView
         registres.setItems(hospital.getRegistres());
+        // Si hi ha una urgencia seleccionada:
         if (urgencia != null) {
+            // Crea una ObservableList temporal
             ObservableList<Pacient> temp = FXCollections.observableArrayList();
+            // Comrpova els pacients que tenen la urgencia seleccionada
             for (int i = 0; i < hospital.getRegistres().size(); i++) {
                 Pacient p = registres.getItems().get(i);
+                // Introdueix-los a la llista temporal
                 if (p.getUrgencia().equals(urgencia)) {
                     temp.add(p);
                 }
             }
+            // Actualitza la ListView amb els Pacients que tenen la urgencia seleccionada
             registres.setItems(temp);
         }
     }
@@ -363,6 +399,7 @@ public class Controller {
             progress.setProgress(progress.getProgress() + 0.1);
         }
 
+        // Canvia el color de la progress bar depenent del progress
         if (progress.getProgress() < 0.3) {
             progress.setStyle("-fx-accent: red");
         } else if (progress.getProgress() < 0.45) {
